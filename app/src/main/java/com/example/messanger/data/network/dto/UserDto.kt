@@ -1,4 +1,4 @@
-package com.example.messanger.data.network
+package com.example.messanger.data.network.dto
 
 data class UserDto(
     val id: Int,

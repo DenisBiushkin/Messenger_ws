@@ -12,6 +12,7 @@ import com.example.messanger.presentation.register_feature.viemodels.RegisterVie
 
 @Composable
 fun RegisterScreen(
+    modifier: Modifier = Modifier,
     viewModel: RegisterViewModel = hiltViewModel<RegisterViewModel>()
 ){
     val state = viewModel.state.collectAsState()

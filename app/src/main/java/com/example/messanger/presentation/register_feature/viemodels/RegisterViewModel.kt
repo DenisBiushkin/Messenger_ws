@@ -66,10 +66,10 @@ class RegisterViewModel @Inject constructor(
 //                username = "9279773278",
 //            )
            // tokenManager.saveTokens(token.access_token,token.refresh_token)
-            val response = mainApi.getUser()
+            //val response = mainApi.getUser()
 
           //  Log.d(TAG,"Saved TOKEN "+tokenManager.getTokens())
-            Log.d(TAG,"Status: ${response}")
+        //    Log.d(TAG,"Status: ${response}")
            // Log.d(TAG,token.toString())
         }
     }
