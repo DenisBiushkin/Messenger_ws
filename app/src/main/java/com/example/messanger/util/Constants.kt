@@ -4,10 +4,17 @@ object Constants {
 
     const val ROOM_DB_NAME="appDatabase"
 
+    const val TAG = "MyTag"
+
     //NetWork
-    const val NETWORK_API_BASE_URL= "http://127.0.0.1:8000/"
-    const val NETWORK_CLIENT_SECRET ="4xrOJxqqdjLrKrLnGFYa6DokgGySHJpHHWI7XpBe"
-    const val NETWORK_CLIENT_ID = "019a82c3-fe9e-73ad-908e-02de94ec4bd8"
-    const val NETWORK_GRANT_TYPE ="password"
+    const val NETWORK_API_BASE_URL= "https://1c1043c4a131.ngrok-free.app/"
+    const val NETWORK_CLIENT_SECRET ="ZjRoA66BCz6nYfiPU84a8fqGoV4h2Gob8UQPK42h"
+    const val NETWORK_CLIENT_ID = "019a824b-6da0-736b-8261-14e440e2677a"
+    const val NETWORK_GRANT_TYPE_GET_TOKEN ="password"
+
+    const val NETWORK_GRANT_TYPE_REFRESH_TOKEN ="refresh_token"
     const val NETWORK_SCOPE ="*"
+
+
+
 }

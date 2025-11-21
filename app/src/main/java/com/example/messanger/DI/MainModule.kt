@@ -14,6 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 
@@ -31,25 +32,25 @@ object MainModule {
         ).build()
     }
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(NETWORK_API_BASE_URL)
-            //.client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideAuthApi(retrofit: Retrofit): AuthApi {
-        return retrofit.create(AuthApi::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMainApi(retrofit: Retrofit): MainApi {
-        return retrofit.create(MainApi::class.java)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideRetrofit(): Retrofit {
+//        return Retrofit.Builder()
+//            .baseUrl(NETWORK_API_BASE_URL)
+//            //.client(okHttpClient)
+//            .addConverterFactory(MoshiConverterFactory.create())
+//            .build()
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun provideAuthApi(retrofit: Retrofit): AuthApi {
+//        return retrofit.create(AuthApi::class.java)
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun provideMainApi(retrofit: Retrofit): MainApi {
+//        return retrofit.create(MainApi::class.java)
+//    }
 }
