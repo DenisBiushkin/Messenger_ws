@@ -162,7 +162,7 @@ fun LoginScreen(
                         isLoading = true
                         // Имитация процесса входа
                         // В реальном приложении здесь будет API call
-                        // onLoginSuccess() будет вызван после успешной аутентификации
+                        onLoginSuccess()
                     }
                 )
 

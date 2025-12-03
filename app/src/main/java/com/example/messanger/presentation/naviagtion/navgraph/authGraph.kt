@@ -1,10 +1,12 @@
-package com.example.messanger.presentation.naviagtion
+package com.example.messanger.presentation.naviagtion.navgraph
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.messanger.presentation.login_feature.LoginScreen
+import com.example.messanger.presentation.naviagtion.routes.NavRoutes
+import com.example.messanger.presentation.naviagtion.routes.Screens
 import com.example.messanger.presentation.register_feature.components.RegisterScreen
 
 fun NavGraphBuilder.authGraph(

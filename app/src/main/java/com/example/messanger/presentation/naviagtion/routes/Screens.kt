@@ -1,4 +1,4 @@
-package com.example.messanger.presentation.naviagtion
+package com.example.messanger.presentation.naviagtion.routes
 
 sealed class Screens(
     val route:String

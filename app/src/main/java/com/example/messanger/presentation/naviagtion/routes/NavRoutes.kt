@@ -1,4 +1,4 @@
-package com.example.messanger.presentation.naviagtion
+package com.example.messanger.presentation.naviagtion.routes
 
 object NavRoutes {
     const val AUTH_GRAPH = "auth_graph"
