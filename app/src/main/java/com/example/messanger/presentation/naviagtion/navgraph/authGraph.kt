@@ -7,22 +7,30 @@ import androidx.navigation.navigation
 import com.example.messanger.presentation.login_feature.LoginScreen
 import com.example.messanger.presentation.naviagtion.routes.NavRoutes
 import com.example.messanger.presentation.naviagtion.routes.Screens
-import com.example.messanger.presentation.register_feature.components.RegisterScreen
+import com.example.messanger.presentation.register_feature.screens.RegisterScreenFull
 
 fun NavGraphBuilder.authGraph(
     navController: NavController
 ) {
     navigation(
-        startDestination = Screens.Register.route,
+        startDestination = Screens.Login.route,
         route = NavRoutes.AUTH_GRAPH
     ) {
 
         composable(
             route = Screens.Register.route
         ){
-            RegisterScreen()
+            RegisterScreenFull(
+                navController=navController,
+                onNavigateToLogin = {
+                    navController.navigate(Screens.Login.route)
+                },
+                onRegistrationSuccess = {
+                    navController.navigate(Screens.Login.route)
+                }
+            )
         }
-        composable(Screens.Register.route) {
+        composable(Screens.Login.route) {
             LoginScreen(
                 onLoginSuccess = {
                     // Переходим в основное приложение
@@ -33,7 +41,7 @@ fun NavGraphBuilder.authGraph(
                     }
                 },
                 onNavigateToRegistration = {
-                    //navController.navigate(Screens.Registration.route)
+                    navController.navigate(Screens.Register.route)
                 },
                 onNavigateToForgotPassword = {
                     //navController.navigate(Screens.ForgotPassword.route)

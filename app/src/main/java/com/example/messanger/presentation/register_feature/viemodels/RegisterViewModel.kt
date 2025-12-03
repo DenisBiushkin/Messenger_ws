@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,9 +24,94 @@ class RegisterViewModel @Inject constructor(
     private val database: AppDatabase,
     private val mainApi: MainApi,
 ): ViewModel() {
-    private val _state: MutableStateFlow<RegisterVMState> = MutableStateFlow(RegisterVMState())
+    private val _state = MutableStateFlow(RegisterVMState())
     val state: StateFlow<RegisterVMState> = _state.asStateFlow()
 
+    fun updateName(name: String) {
+        _state.update { it.copy(name = name) }
+    }
+
+    fun updatePhone(phone: String) {
+        val filtered = phone.filter { char -> char.isDigit() }
+        _state.update { it.copy(phone = filtered) }
+    }
+
+    fun updatePassword(password: String) {
+        _state.update { it.copy(password = password) }
+    }
+
+    fun updatePasswordConfirmation(passwordConfirmation: String) {
+        _state.update { it.copy(passwordConfirmation = passwordConfirmation) }
+    }
+
+    fun togglePasswordVisibility() {
+        _state.update { it.copy(passwordVisible = !it.passwordVisible) }
+    }
+
+    fun toggleConfirmPasswordVisibility() {
+        _state.update { it.copy(confirmPasswordVisible = !it.confirmPasswordVisible) }
+    }
+
+    fun register(
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true, errorMessage = null) }
+
+            // Валидация
+            if (!validateInput()) {
+                _state.update { it.copy(isLoading = false) }
+                return@launch
+            }
+
+            try {
+                // Здесь будет вызов API для регистрации
+                // Например: authRepository.register(state.value)
+
+                // Имитация задержки сети
+                kotlinx.coroutines.delay(1500)
+
+                onSuccess()
+            } catch (e: Exception) {
+                onError(e.message ?: "Ошибка регистрации")
+                _state.update { it.copy(
+                    isLoading = false,
+                    errorMessage = e.message ?: "Ошибка регистрации"
+                ) }
+            }
+        }
+    }
+
+    private fun validateInput(): Boolean {
+        val currentState = _state.value
+
+        if (currentState.name.isBlank()) {
+            _state.update { it.copy(errorMessage = "Введите имя") }
+            return false
+        }
+
+        if (currentState.phone.length < 10) {
+            _state.update { it.copy(errorMessage = "Введите корректный номер телефона") }
+            return false
+        }
+
+        if (currentState.password.length < 6) {
+            _state.update { it.copy(errorMessage = "Пароль должен содержать минимум 6 символов") }
+            return false
+        }
+
+        if (currentState.password != currentState.passwordConfirmation) {
+            _state.update { it.copy(errorMessage = "Пароли не совпадают") }
+            return false
+        }
+
+        return true
+    }
+
+    fun clearError() {
+        _state.update { it.copy(errorMessage = null) }
+    }
 //    init {
 //        viewModelScope.launch {
 //
