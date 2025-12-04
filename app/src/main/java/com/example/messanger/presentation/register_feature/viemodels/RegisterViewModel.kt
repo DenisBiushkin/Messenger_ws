@@ -3,7 +3,6 @@ package com.example.messanger.presentation.register_feature.viemodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.messanger.data.AuthDataStoreManager
 import com.example.messanger.data.network.AuthApi
 import com.example.messanger.data.network.MainApi
 import com.example.messanger.data.source.AppDatabase

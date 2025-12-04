@@ -1,7 +1,7 @@
 package com.example.messanger.data.network.interceptors
 
-import com.example.messanger.data.AuthDataStoreManager
 import com.example.messanger.data.network.AuthApi
+import com.example.messanger.data.token.TokenProvider
 import com.example.messanger.domain.AuthRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
@@ -13,17 +13,16 @@ import javax.inject.Singleton
 
 @Singleton
 class TokenAuthenticator @Inject constructor(
-    private val authRepository: AuthRepository
+    private val tokenProvider: TokenProvider
 ) : Authenticator {
     
     override fun authenticate(route: Route?, response: Response): Request? {
-        // Для корутин используем runBlocking, но лучше перейти на suspend authenticator
 
         return runBlocking {
             try {
-                authRepository.updateToken()
-                val newToken = authRepository.getAccessToken()
-                if (newToken != null) {
+                tokenProvider.refreshTokens()
+                val newToken = tokenProvider.getAccessToken()
+                if (!newToken.isEmpty()) {
                     response.request.newBuilder()
                         .header("Authorization", "Bearer $newToken")
                         .build()

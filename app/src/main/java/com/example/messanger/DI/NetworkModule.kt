@@ -1,9 +1,9 @@
 package com.example.messanger.DI
 
-import com.example.messanger.data.AuthDataStoreManager
 import com.example.messanger.data.network.AuthApi
 import com.example.messanger.data.network.MainApi
 import com.example.messanger.data.network.interceptors.HeadersInterceptor
+import com.example.messanger.data.token.TokenProvider
 import com.example.messanger.domain.AuthRepository
 import com.example.messanger.util.Constants
 import dagger.Module
@@ -27,31 +27,31 @@ object NetworkModule {
             .addInterceptor(headersInterceptor)
             .build()
     }
+
     @Provides
     @Singleton
-    fun provideRetrofit( okHttpClient:OkHttpClient): Retrofit {
+    fun provideHeadersInterceptor(tokenProvider: TokenProvider):HeadersInterceptor{
+        return HeadersInterceptor(tokenProvider)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMainApi( okHttpClient:OkHttpClient): MainApi {
         return Retrofit.Builder()
-            .baseUrl(Constants.NETWORK_API_BASE_URL)
+            .baseUrl(Constants.URL_API_MAIN)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
+            .create(MainApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideHeadersInterceptor(authRepository: AuthRepository):HeadersInterceptor{
-        return HeadersInterceptor(authRepository)
+    fun provideAuthApi(): AuthApi{
+        return Retrofit.Builder()
+            .baseUrl(Constants.URL_API_AUTH)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(AuthApi::class.java)
     }
-    
-    @Provides
-    @Singleton
-    fun provideMainApi(retrofit: Retrofit): MainApi {
-        return retrofit.create(MainApi::class.java)
-    }
-
-//    @Provides
-//    @Singleton
-//    fun provideAuthApi(retrofit: Retrofit): AuthApi{
-//        return retrofit.create(AuthApi::class.java)
-//    }
 }

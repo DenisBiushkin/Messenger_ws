@@ -24,4 +24,11 @@ interface MainApi {
         @Part avatar: MultipartBody.Part
     ): Response<UploadAvatarResponse>
 
+
+    @POST("api/register")
+    suspend fun registerUser(
+        @Body request: RegisterRequest
+    ): RegisterResponse
+
+
 }

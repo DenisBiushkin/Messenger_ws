@@ -30,9 +30,4 @@ interface AuthApi {
         @Field("refresh_token") refreshToken:String,
     ): TokenDto
 
-    @POST("api/register")
-    suspend fun registerUser(
-        @Body request: RegisterRequest
-    ): RegisterResponse
-
 }
