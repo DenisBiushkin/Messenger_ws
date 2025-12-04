@@ -14,11 +14,6 @@ import retrofit2.http.Part
 
 interface MainApi {
 
-    @POST("api/register")
-    suspend fun registerUser(
-        @Body request: RegisterRequest
-    ): RegisterResponse
-
     @GET("api/user/profile")
     suspend fun getUser(
     ): UserDto

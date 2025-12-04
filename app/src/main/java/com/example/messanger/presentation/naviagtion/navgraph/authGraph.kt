@@ -4,7 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.messanger.presentation.login_feature.LoginScreen
+import com.example.messanger.presentation.login_feature.screens.LoginScreen
+import com.example.messanger.presentation.login_feature.screens.LoginScreenWrapper
 import com.example.messanger.presentation.naviagtion.routes.NavRoutes
 import com.example.messanger.presentation.naviagtion.routes.Screens
 import com.example.messanger.presentation.register_feature.screens.RegisterScreenFull
@@ -31,7 +32,8 @@ fun NavGraphBuilder.authGraph(
             )
         }
         composable(Screens.Login.route) {
-            LoginScreen(
+
+            LoginScreenWrapper(
                 onLoginSuccess = {
                     // Переходим в основное приложение
                     navController.navigate(NavRoutes.MAIN_GRAPH) {
@@ -44,7 +46,7 @@ fun NavGraphBuilder.authGraph(
                     navController.navigate(Screens.Register.route)
                 },
                 onNavigateToForgotPassword = {
-                    //navController.navigate(Screens.ForgotPassword.route)
+
                 }
             )
         }

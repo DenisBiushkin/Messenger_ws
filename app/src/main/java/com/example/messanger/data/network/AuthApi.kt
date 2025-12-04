@@ -1,6 +1,9 @@
 package com.example.messanger.data.network
 
+import com.example.messanger.data.network.dto.RegisterRequest
+import com.example.messanger.data.network.dto.RegisterResponse
 import com.example.messanger.data.network.dto.TokenDto
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -26,5 +29,10 @@ interface AuthApi {
         @Field("client_secret") clientSecret:String ,
         @Field("refresh_token") refreshToken:String,
     ): TokenDto
+
+    @POST("api/register")
+    suspend fun registerUser(
+        @Body request: RegisterRequest
+    ): RegisterResponse
 
 }

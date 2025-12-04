@@ -80,6 +80,8 @@ class RegisterViewModel @Inject constructor(
                     errorMessage = e.message ?: "Ошибка регистрации"
                 ) }
             }
+
+
         }
     }
 
