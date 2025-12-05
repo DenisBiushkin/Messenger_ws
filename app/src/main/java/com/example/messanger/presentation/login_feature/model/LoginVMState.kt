@@ -7,5 +7,6 @@ data class LoginVMState(
     val password:String = "",
     val passwordVisible: Boolean = false,
     val isLoading: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val loginSuccess: Boolean = false // Флаг успешного входа
 )

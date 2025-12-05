@@ -22,6 +22,19 @@ class TokenProviderImpl(
         return prefs[ACCESS_TOKEN].orEmpty()
     }
 
+    override suspend fun hasValidSession(): Boolean {
+        val accessToken = getAccessToken()
+        val refreshToken = getRefreshToken()
+
+        if (accessToken.isBlank() || refreshToken.isBlank()) {
+            Log.d(Constants.TAG, "hasValidSession: один или оба токена пустые")
+            return false
+        }
+        Log.d(Constants.TAG, "hasValidSession: валидная сессия найдена")
+        return true
+    }
+
+
     private suspend fun getRefreshToken():String{
         val prefs = dataStore.data.first()
         return prefs[REFRESH_TOKEN].orEmpty()

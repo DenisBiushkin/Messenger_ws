@@ -11,7 +11,7 @@ import retrofit2.http.POST
 interface AuthApi {
 
     @FormUrlEncoded
-    @POST("oauth/token")
+    @POST("token")
     suspend fun getAuthToken(
         @Field("grant_type") grantType:String,
         @Field("client_id") clientId:String ,
@@ -22,7 +22,7 @@ interface AuthApi {
     ): TokenDto
 
     @FormUrlEncoded
-    @POST("oauth/token")
+    @POST("token")
     suspend fun getRefreshAuthToken(
         @Field("grant_type") grantType:String,
         @Field("client_id") clientId:String ,

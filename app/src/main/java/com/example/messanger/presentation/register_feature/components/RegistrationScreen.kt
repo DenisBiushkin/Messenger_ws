@@ -1,4 +1,5 @@
 package com.example.messanger.presentation.register_feature.components
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,10 +14,12 @@ import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.messanger.presentation.login_feature.components.BackgroundElements
 import com.example.messanger.presentation.register_feature.models.RegistrationEvent
 import com.example.messanger.presentation.register_feature.models.RegisterVMState
 import com.example.messanger.presentation.register_feature.util.PhoneVisualTransformation
@@ -29,88 +32,109 @@ fun RegistrationScreen(
     onNavigateToLogin: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 24.dp)
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
     ) {
-        // Заголовок
-        Text(
-            text = "Регистрация",
-            style = MaterialTheme.typography.headlineMedium.copy(
-                fontWeight = FontWeight.Bold
-            ),
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(bottom = 32.dp)
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            MaterialTheme.colorScheme.background
+                        )
+                    )
+                )
+        ) {
+            // Фоновые декоративные элементы
+            BackgroundElements()
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                // Заголовок
+                Text(
+                    text = "Регистрация",
+                    style = MaterialTheme.typography.headlineMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(bottom = 32.dp)
+                )
 
-        // Поле для имени
-        NameField(
-            name = state.name,
-            onNameChange = { onEvent(RegistrationEvent.NameChanged(it)) }
-        )
+                // Поле для имени
+                NameField(
+                    name = state.name,
+                    onNameChange = { onEvent(RegistrationEvent.NameChanged(it)) }
+                )
 
-        Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-        // Поле для телефона
-        PhoneField(
-            phone = state.phone,
-            onPhoneChange = { onEvent(RegistrationEvent.PhoneChanged(it)) }
-        )
+                // Поле для телефона
+                PhoneField(
+                    phone = state.phone,
+                    onPhoneChange = { onEvent(RegistrationEvent.PhoneChanged(it)) }
+                )
 
-        Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-        // Поле для пароля
-        PasswordField(
-            password = state.password,
-            onPasswordChange = { onEvent(RegistrationEvent.PasswordChanged(it)) },
-            passwordVisible = state.passwordVisible,
-            onPasswordVisibilityToggle = { onEvent(RegistrationEvent.TogglePasswordVisibility) },
-            label = "Пароль",
-            placeholder = "Введите ваш пароль"
-        )
+                // Поле для пароля
+                PasswordField(
+                    password = state.password,
+                    onPasswordChange = { onEvent(RegistrationEvent.PasswordChanged(it)) },
+                    passwordVisible = state.passwordVisible,
+                    onPasswordVisibilityToggle = { onEvent(RegistrationEvent.TogglePasswordVisibility) },
+                    label = "Пароль",
+                    placeholder = "Введите ваш пароль"
+                )
 
-        Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-        // Поле для подтверждения пароля
-        PasswordField(
-            password = state.passwordConfirmation,
-            onPasswordChange = { onEvent(RegistrationEvent.PasswordConfirmationChanged(it)) },
-            passwordVisible = state.confirmPasswordVisible,
-            onPasswordVisibilityToggle = { onEvent(RegistrationEvent.ToggleConfirmPasswordVisibility) },
-            label = "Подтверждение пароля",
-            placeholder = "Повторите ваш пароль"
-        )
+                // Поле для подтверждения пароля
+                PasswordField(
+                    password = state.passwordConfirmation,
+                    onPasswordChange = { onEvent(RegistrationEvent.PasswordConfirmationChanged(it)) },
+                    passwordVisible = state.confirmPasswordVisible,
+                    onPasswordVisibilityToggle = { onEvent(RegistrationEvent.ToggleConfirmPasswordVisibility) },
+                    label = "Подтверждение пароля",
+                    placeholder = "Повторите ваш пароль"
+                )
 
-        // Отображение ошибки
-        state.errorMessage?.let { errorMessage ->
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = errorMessage,
-                color = MaterialTheme.colorScheme.error,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(horizontal = 4.dp)
-            )
+                // Отображение ошибки
+                state.errorMessage?.let { errorMessage ->
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = errorMessage,
+                        color = MaterialTheme.colorScheme.error,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(horizontal = 4.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                // Кнопка регистрации
+                RegistrationButton(
+                    isLoading = state.isLoading,
+                    onRegisterClick = { onEvent(RegistrationEvent.Register) }
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Ссылки для навигации
+                NavigationLinksRegistration(
+                    onNavigateToLogin = onNavigateToLogin
+                )
+            }
         }
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        // Кнопка регистрации
-        RegistrationButton(
-            isLoading = state.isLoading,
-            onRegisterClick = { onEvent(RegistrationEvent.Register) }
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Ссылки для навигации
-        NavigationLinksRegistration(
-            onNavigateToLogin = onNavigateToLogin
-        )
     }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

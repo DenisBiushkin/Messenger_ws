@@ -4,9 +4,8 @@ import android.util.Log
 
 import com.example.messanger.data.network.AuthApi
 import com.example.messanger.data.token.TokenProvider
-import com.example.messanger.domain.AuthRepository
+import com.example.messanger.domain.repository.AuthRepository
 import com.example.messanger.util.Constants
-import kotlinx.coroutines.flow.first
 import java.io.IOException
 
 
@@ -26,9 +25,11 @@ class AuthRepositoryImpl(
                 scope =  Constants.NETWORK_SCOPE
             )
             tokenProvider.saveTokensModel(token.access_token,token.refresh_token)
+            Log.d(Constants.TAG,"Получен Токен AuthRepository  ${token.access_token}")
             return true;
-        }catch (io: IOException){
-            Log.d(Constants.TAG,"Ошибка входа")
+        }catch (io: Exception){
+            Log.d(Constants.TAG,"Ошибка входа AuthRepository  ${io.toString()}")
+
             return false
         }
     }

@@ -1,15 +1,9 @@
 package com.example.messanger.data.network.interceptors
 
-import android.util.Log
 import com.example.messanger.data.token.TokenProvider
-import com.example.messanger.domain.AuthRepository
-import com.example.messanger.util.Constants
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
-
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
 class HeadersInterceptor (

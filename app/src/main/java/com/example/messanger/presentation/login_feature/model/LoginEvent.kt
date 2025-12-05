@@ -8,4 +8,7 @@ sealed class LoginEvent {
     data class PasswordChanged(val password: String) : LoginEvent()
     object OnLogin: LoginEvent()
     object TogglePasswordVisibility : LoginEvent()
+
+    object ClearState : LoginEvent()
+    object ClearError : LoginEvent()
 }

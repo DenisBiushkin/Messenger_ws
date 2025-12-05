@@ -10,5 +10,7 @@ interface TokenProvider {
 
     suspend fun saveTokensModel(accessToken:String,refreshToken:String)
 
+    suspend fun hasValidSession(): Boolean
+
     suspend fun clearTokens()
 }

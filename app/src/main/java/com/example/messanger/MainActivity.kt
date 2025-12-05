@@ -11,20 +11,56 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.messanger.data.token.TokenProvider
+import com.example.messanger.presentation.naviagtion.routes.NavRoutes
+import com.example.messanger.presentation.naviagtion.routes.NavRoutes.AUTH_GRAPH
+import com.example.messanger.util.MinimalSplashScreen
+import kotlinx.coroutines.delay
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    @Inject
+    lateinit var tokenProvider: TokenProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
+            var startDestination by remember { mutableStateOf<String>(AUTH_GRAPH) }
             val navHostController = rememberNavController()
-            RootNavigationGraph(navHostController = navHostController)
+            var visible by remember { mutableStateOf(true) }
+            //Залогинин ли уже пользователь
+            LaunchedEffect(Unit) {
+
+
+
+            //УДАЛИТЬ ПОСЛЕ НАСТРОЙКИ
+                tokenProvider.clearTokens()
+
+
+
+                val hasSession = tokenProvider.hasValidSession()
+                startDestination = if (hasSession) NavRoutes.MAIN_GRAPH else NavRoutes.AUTH_GRAPH
+                visible = false
+            }
+
+            if ( visible) {
+              //  MinimalSplashScreen()
+            } else {
+                RootNavigationGraph(
+                    navHostController = navHostController,
+                    startDestination = startDestination
+                )
+            }
         }
 
     }

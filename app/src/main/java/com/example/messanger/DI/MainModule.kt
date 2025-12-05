@@ -10,6 +10,8 @@ import com.example.messanger.data.network.MainApi
 import com.example.messanger.data.source.AppDatabase
 import com.example.messanger.data.token.TokenProvider
 import com.example.messanger.data.token.TokenProviderImpl
+import com.example.messanger.domain.validation.AuthValidator
+import com.example.messanger.domain.validation.AuthValidatorImpl
 import com.example.messanger.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -43,5 +45,11 @@ object MainModule {
     ): TokenProvider{
         return TokenProviderImpl(authApi,dataStore)
     }
+
+    @Singleton
+    @Provides
+    fun provideAuthValidator(): AuthValidator = AuthValidatorImpl()
+
+
 
 }

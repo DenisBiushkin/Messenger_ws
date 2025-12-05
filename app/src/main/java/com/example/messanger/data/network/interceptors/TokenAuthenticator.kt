@@ -1,8 +1,6 @@
 package com.example.messanger.data.network.interceptors
 
-import com.example.messanger.data.network.AuthApi
 import com.example.messanger.data.token.TokenProvider
-import com.example.messanger.domain.AuthRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request

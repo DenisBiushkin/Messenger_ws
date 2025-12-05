@@ -31,6 +31,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -56,6 +57,7 @@ import com.example.messanger.presentation.login_feature.model.LoginVMState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
+    modifier: Modifier = Modifier,
     state: LoginVMState,
     onEvent: (LoginEvent) -> Unit,
     onLoginSuccess: () -> Unit,
@@ -65,7 +67,7 @@ fun LoginScreen(
     var rememberMe by remember { mutableStateOf(false) }
 
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         Box(
@@ -119,7 +121,6 @@ fun LoginScreen(
                         onEvent(LoginEvent.OnLogin)
                         // Имитация процесса входа
                         // В реальном приложении здесь будет API call
-                        onLoginSuccess()
                     }
                 )
 
@@ -196,17 +197,17 @@ private fun EmailField(
         modifier = Modifier.fillMaxWidth(),
         label = {
             Text(
-                text = "Email",
+                text = "Телефон",
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
         placeholder = {
-            Text("example@mail.com")
+            Text("8 927 111 22 33")
         },
         leadingIcon = {
             Icon(
-                imageVector = Icons.Default.Email,
-                contentDescription = "Email",
+                imageVector = Icons.Default.Phone,
+                contentDescription = "Номер телефона",
                 tint = MaterialTheme.colorScheme.primary
             )
         },

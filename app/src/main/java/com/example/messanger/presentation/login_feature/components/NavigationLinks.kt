@@ -31,16 +31,6 @@ fun NavigationLinks(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Ссылка "Забыли пароль?"
-        TextButton(
-            onClick = onNavigateToForgotPassword
-        ) {
-            Text(
-                text = "Забыли пароль?",
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.Medium
-            )
-        }
 
         Spacer(modifier = Modifier.height(16.dp))
 

@@ -16,6 +16,7 @@ interface MainApi {
 
     @GET("api/user/profile")
     suspend fun getUser(
+
     ): UserDto
 
     @Multipart

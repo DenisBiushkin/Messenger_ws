@@ -1,6 +1,4 @@
-package com.example.messanger.domain
-
-import com.example.messanger.data.AuthTokens
+package com.example.messanger.domain.repository
 
 interface AuthRepository {
 

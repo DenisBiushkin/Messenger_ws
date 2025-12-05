@@ -4,17 +4,14 @@ import com.example.messanger.data.network.AuthApi
 import com.example.messanger.data.network.MainApi
 import com.example.messanger.data.network.interceptors.HeadersInterceptor
 import com.example.messanger.data.token.TokenProvider
-import com.example.messanger.domain.AuthRepository
 import com.example.messanger.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
