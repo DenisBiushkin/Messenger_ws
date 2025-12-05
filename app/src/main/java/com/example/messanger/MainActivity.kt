@@ -41,17 +41,16 @@ class MainActivity : ComponentActivity() {
             //Залогинин ли уже пользователь
             LaunchedEffect(Unit) {
 
-
-
-            //УДАЛИТЬ ПОСЛЕ НАСТРОЙКИ
-                tokenProvider.clearTokens()
-
-
+               //УДАЛИТЬ ПОСЛЕ НАСТРОЙКИ
+               // tokenProvider.clearTokens()
 
                 val hasSession = tokenProvider.hasValidSession()
                 startDestination = if (hasSession) NavRoutes.MAIN_GRAPH else NavRoutes.AUTH_GRAPH
                 visible = false
             }
+
+            //УДАЛИТЬ ПОСЛЕ НАСТРОЙКИ
+             //   startDestination = NavRoutes.MAIN_GRAPH
 
             if ( visible) {
               //  MinimalSplashScreen()

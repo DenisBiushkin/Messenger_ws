@@ -25,9 +25,6 @@ fun NavGraphBuilder.authGraph(
                 navController=navController,
                 onNavigateToLogin = {
                     navController.navigate(Screens.Login.route)
-                },
-                onRegistrationSuccess = {
-                    navController.navigate(Screens.Login.route)
                 }
             )
         }

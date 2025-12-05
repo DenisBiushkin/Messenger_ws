@@ -18,7 +18,13 @@ class AuthValidatorImpl:AuthValidator {
         ){
             return ValidationResult.Success
         }
-        return ValidationResult.Error("Некорректные данные")
+        val listResults = listOf<ValidationResult>(phoneResult,passwordResult)
+        val errorMessages = listResults
+            .filterIsInstance<ValidationResult.Error>()
+            .map { it.message }
+            .joinToString(separator = "\n")
+
+        return ValidationResult.Error(errorMessages)
     }
 
     override fun signUpValidate(
@@ -37,7 +43,13 @@ class AuthValidatorImpl:AuthValidator {
         ){
             return ValidationResult.Success
         }
-        return ValidationResult.Error("Некорректные данные")
+        val listResults = listOf<ValidationResult>(phoneResult,passwordResult,usernameResult)
+        val errorMessages = listResults
+            .filterIsInstance<ValidationResult.Error>()
+            .map { it.message }
+            .joinToString(separator = "\n")
+
+        return ValidationResult.Error(errorMessages)
     }
 
     private fun validatePhone(phone: String): ValidationResult {
@@ -68,8 +80,8 @@ class AuthValidatorImpl:AuthValidator {
         password: String
     ): ValidationResult{
         return when {
-            password.isBlank() -> ValidationResult.Error("Параль обязателен")
-            password.length > 7 -> ValidationResult.Error("Пароль минимум 8 символов")
+            password.isBlank() -> ValidationResult.Error("Пароль обязателен")
+            password.length <7 -> ValidationResult.Error("Пароль минимум 8 символов")
             else -> ValidationResult.Success
         }
     }

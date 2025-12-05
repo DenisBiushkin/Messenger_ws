@@ -86,7 +86,7 @@ fun LoginScreenWrapper(
                 onNavigateToForgotPassword = onNavigateToForgotPassword
             )
 
-            // 🔄 АНИМИРОВАННАЯ ЗАГРУЗКА
+            //АНИМИРОВАННАЯ ЗАГРУЗКА
             AnimatedVisibility(
                 visible = state.value.isLoading,
                 enter = fadeIn(),

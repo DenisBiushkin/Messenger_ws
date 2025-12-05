@@ -1,12 +1,10 @@
 package com.example.messanger.DI
 
 import android.app.Application
-import androidx.compose.ui.unit.Constraints
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.room.Room
 import com.example.messanger.data.network.AuthApi
-import com.example.messanger.data.network.MainApi
 import com.example.messanger.data.source.AppDatabase
 import com.example.messanger.data.token.TokenProvider
 import com.example.messanger.data.token.TokenProviderImpl
@@ -17,9 +15,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 

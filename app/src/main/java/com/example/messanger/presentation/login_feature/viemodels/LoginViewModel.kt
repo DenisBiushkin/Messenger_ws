@@ -61,21 +61,16 @@ class LoginViewModel @Inject constructor(
 
     private fun signIn(){
         viewModelScope.launch {
-//            when(authValidator.signInValidate(state.value.phone,state.value.password)){
-//                is ValidationResult.Error ->{
-//                    // вывести ошибку
-//                    _state.update {
-//                            st->
-//                        st.copy(
-//                            errorMessage = "Ошибка входа данные"
-//                        )
-//                    }
-//                    return@launch
-//                }
-//                is ValidationResult.Success->{
-//                    // идем дальше
-//                }
-//            }
+            when(val res= authValidator.signInValidate(state.value.phone,state.value.password)){
+                is ValidationResult.Error ->{
+                    // вывести ошибку
+                    _uiEffects.send(UiEffect.ShowError(res.message))
+                    return@launch
+                }
+                is ValidationResult.Success->{
+                    // идем дальше
+                }
+            }
             _state.update { it.copy(isLoading = true, errorMessage = null) }
             when(signInUseCase.execute(state.value.phone,state.value.password)){
 

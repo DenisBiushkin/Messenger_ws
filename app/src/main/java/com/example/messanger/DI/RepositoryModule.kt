@@ -1,9 +1,12 @@
 package com.example.messanger.DI
 
 import com.example.messanger.data.network.AuthApi
+import com.example.messanger.data.network.UserApi
 import com.example.messanger.data.repository.AuthRepositoryImpl
+import com.example.messanger.data.repository.UserRepositoryImpl
 import com.example.messanger.data.token.TokenProvider
 import com.example.messanger.domain.repository.AuthRepository
+import com.example.messanger.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,5 +24,13 @@ object RepositoryModule {
         authApi: AuthApi
     ): AuthRepository {
         return AuthRepositoryImpl(authApi, tokenProvider)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(
+        userApi: UserApi
+    ): UserRepository {
+        return UserRepositoryImpl(userApi)
     }
 }

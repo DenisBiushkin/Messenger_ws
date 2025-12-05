@@ -1,7 +1,7 @@
 package com.example.messanger.DI
 
 import com.example.messanger.data.network.AuthApi
-import com.example.messanger.data.network.MainApi
+import com.example.messanger.data.network.UserApi
 import com.example.messanger.data.network.interceptors.HeadersInterceptor
 import com.example.messanger.data.token.TokenProvider
 import com.example.messanger.util.Constants
@@ -33,13 +33,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMainApi( okHttpClient:OkHttpClient): MainApi {
+    fun provideMainApi( okHttpClient:OkHttpClient): UserApi {
         return Retrofit.Builder()
             .baseUrl(Constants.URL_API_MAIN)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-            .create(MainApi::class.java)
+            .create(UserApi::class.java)
     }
 
     @Provides
