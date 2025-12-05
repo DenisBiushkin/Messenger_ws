@@ -1,7 +1,9 @@
 package com.example.messanger.DI
 
+import com.example.messanger.data.token.TokenProvider
 import com.example.messanger.domain.repository.AuthRepository
 import com.example.messanger.domain.repository.UserRepository
+import com.example.messanger.domain.usecases.auth.LogoutUserUseCase
 import com.example.messanger.domain.usecases.auth.RegistrationUserUseCase
 import com.example.messanger.domain.usecases.auth.SignInUseCase
 import dagger.Module
@@ -22,5 +24,12 @@ object AuthUseCaseModule {
 
     @Singleton
     @Provides
-    fun provideRegistrationUserUseCase(userRepository: UserRepository): RegistrationUserUseCase = RegistrationUserUseCase(userRepository)
+    fun provideRegistrationUserUseCase(userRepository: UserRepository): RegistrationUserUseCase
+    = RegistrationUserUseCase(userRepository)
+
+
+    @Singleton
+    @Provides
+    fun provideLogoutUserUseCase(tokenProvider: TokenProvider): LogoutUserUseCase =  LogoutUserUseCase(tokenProvider)
+
 }

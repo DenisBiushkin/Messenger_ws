@@ -25,7 +25,11 @@ fun RootNavigationGraph(
         composable(route = NavRoutes.MAIN_GRAPH){
             MainAppScreen(
                 onLogout = {
-                    navHostController.navigate(NavRoutes.AUTH_GRAPH)
+                    navHostController.navigate(NavRoutes.AUTH_GRAPH) {
+                        popUpTo(NavRoutes.MAIN_GRAPH) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }

@@ -7,7 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.messanger.presentation.chats_feature.ChatScreen
 import com.example.messanger.presentation.naviagtion.routes.MainScreen
-import com.example.messanger.presentation.profile_feature.ProfileScreenFull
+import com.example.messanger.presentation.naviagtion.routes.NavRoutes
+import com.example.messanger.presentation.profile_feature.screens.ProfileScreenFull
 
 
 @Composable
@@ -25,7 +26,10 @@ fun MainNavGraph(
         }
 
         composable(route = MainScreen.Profile.route) {
-            ProfileScreenFull(modifier =modifier)
+            ProfileScreenFull(
+                modifier =modifier,
+                onLogout = onLogout
+            )
         }
     }
 }

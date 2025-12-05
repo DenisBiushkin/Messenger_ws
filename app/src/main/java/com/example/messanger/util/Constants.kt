@@ -7,7 +7,7 @@ object Constants {
     const val TAG = "MyTag"
 
     //NetWork
-    private const val NETWORK_API_BASE_URL= "https://prnkii-85-95-179-129.ru.tuna.am/"
+    private const val NETWORK_API_BASE_URL= "https://5wpo6b-85-95-179-129.ru.tuna.am/"
 
     const val URL_API_AUTH =  NETWORK_API_BASE_URL+"oauth/"
     const val URL_API_MAIN =  NETWORK_API_BASE_URL+"api/"
