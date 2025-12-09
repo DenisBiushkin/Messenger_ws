@@ -24,22 +24,7 @@ fun ProfileScreen(
             color = MaterialTheme.colorScheme.background
         ) {
             EmptyProfile(onLogout = onLogout)
-//            if (isLoading) {
-//                LoadingProfile()
-//            } else if (user != null) {
-//
-//
-////                ProfileContent(
-////                    user = user,
-////                    onLogout = onLogout,
-////                    onEditProfile = onEditProfile,
-////                    onAddAvatar = onAddAvatar,
-////                    onAvatarClick = onAvatarClick
-////                )
-//
-//            } else {
-//                EmptyProfile(onLogout = onLogout)
-//            }
+
         }
     }
 

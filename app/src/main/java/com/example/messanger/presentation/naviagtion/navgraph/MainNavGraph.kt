@@ -5,9 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.messanger.presentation.chats_feature.ChatScreen
+import com.example.messanger.presentation.chats_list_feature.screens.ChatScreen
+import com.example.messanger.presentation.chats_list_feature.screens.ChatsListWrapperScreen
 import com.example.messanger.presentation.naviagtion.routes.MainScreen
-import com.example.messanger.presentation.naviagtion.routes.NavRoutes
 import com.example.messanger.presentation.profile_feature.screens.ProfileScreenFull
 
 
@@ -22,7 +22,7 @@ fun MainNavGraph(
         startDestination = MainScreen.Chat.route
     ){
         composable(route = MainScreen.Chat.route) {
-            ChatScreen(modifier =modifier)
+            ChatsListWrapperScreen()
         }
 
         composable(route = MainScreen.Profile.route) {

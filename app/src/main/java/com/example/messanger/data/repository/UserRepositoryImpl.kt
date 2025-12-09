@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.messanger.data.mapper.RegisterUserMapper
 import com.example.messanger.data.network.UserApi
 import com.example.messanger.domain.model.RegisterUser
+import com.example.messanger.domain.model.User
 import com.example.messanger.domain.repository.UserRepository
 import com.example.messanger.util.Constants
 import com.example.messanger.util.Resource
@@ -24,5 +25,9 @@ class UserRepositoryImpl(
         }catch (e: Exception){
             return Resource.Error(message = "Иная ошибка")
         }
+    }
+
+    override suspend fun getCurrentUser(): Resource<User> {
+        TODO("Not yet implemented")
     }
 }

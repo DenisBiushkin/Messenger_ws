@@ -3,7 +3,11 @@ package com.example.messanger.presentation.profile_feature.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.messanger.data.network.ChatsApi
+import com.example.messanger.data.network.MessageApi
+import com.example.messanger.data.network.UserApi
 import com.example.messanger.data.token.TokenProvider
+import com.example.messanger.domain.repository.UserRepository
 import com.example.messanger.domain.usecases.auth.LogoutUserUseCase
 import com.example.messanger.presentation.profile_feature.model.ProfileEffect
 import com.example.messanger.presentation.profile_feature.model.ProfileEvent
@@ -28,6 +32,9 @@ import javax.inject.Inject
 class ProfileScreenViewModel @Inject constructor(
     private val tokenProvider: TokenProvider,
     private val logoutUserUseCase: LogoutUserUseCase,
+    private val userApi: UserApi,
+    private val messageApi: MessageApi,
+    private val chatsApi: ChatsApi
 ) : ViewModel(){
 
     private val _state = MutableStateFlow(ProfileVMState())
@@ -39,6 +46,14 @@ class ProfileScreenViewModel @Inject constructor(
         viewModelScope.launch {
             val token =tokenProvider.getAccessToken()
             Log.d(TAG, "Токен в приложении "+token)
+
+
+//            val data = userApi.getUser(1)
+//            val data2 = messageApi.getMessageById(30)
+//            Log.d(TAG,data.toString())
+//            Log.d(TAG,data2.data.toString())
+
+
         }
     }
 

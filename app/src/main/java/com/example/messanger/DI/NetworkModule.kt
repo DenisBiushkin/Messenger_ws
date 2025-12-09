@@ -1,6 +1,8 @@
 package com.example.messanger.DI
 
 import com.example.messanger.data.network.AuthApi
+import com.example.messanger.data.network.ChatsApi
+import com.example.messanger.data.network.MessageApi
 import com.example.messanger.data.network.UserApi
 import com.example.messanger.data.network.interceptors.HeadersInterceptor
 import com.example.messanger.data.token.TokenProvider
@@ -41,8 +43,29 @@ object NetworkModule {
             .build()
             .create(UserApi::class.java)
     }
+    @Provides
+    @Singleton
+    fun provideChatsApi( okHttpClient:OkHttpClient): ChatsApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.URL_API_MAIN)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+            .create(ChatsApi::class.java)
+    }
 
     @Provides
+    @Singleton
+    fun provideMessageApi( okHttpClient:OkHttpClient): MessageApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.URL_API_MAIN)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+            .create(MessageApi::class.java)
+    }
+
+        @Provides
     @Singleton
     fun provideAuthApi(): AuthApi{
         return Retrofit.Builder()
