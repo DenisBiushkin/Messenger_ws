@@ -5,5 +5,5 @@ data class UserDto(
     val name: String,
     val phone: String,
     val created_at: String,
-    val avatars: List<AvatarDto> = emptyList(),
+    val avatar: List<AvatarDto> = emptyList(),
 )

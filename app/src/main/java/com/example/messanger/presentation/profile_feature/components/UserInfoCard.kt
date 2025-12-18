@@ -77,7 +77,7 @@ fun UserInfoCard(
             InfoRow(
                 icon = Icons.Default.AccountCircle,
                 title = "Аватаров",
-                value = user.avatars.size.toString()
+                value = user.avatar.size.toString()
             )
         }
     }

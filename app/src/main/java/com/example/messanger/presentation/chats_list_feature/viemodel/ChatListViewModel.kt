@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.messanger.data.network.ChatsApi
 import com.example.messanger.data.network.MessageApi
 import com.example.messanger.data.network.UserApi
-import com.example.messanger.data.network.dto.chat.CreateChatRequest
+import com.example.messanger.data.network.dto.message.ChangeMessageRequest
 import com.example.messanger.data.network.dto.message.SendMessageRequest
 import com.example.messanger.util.Constants.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,13 +37,22 @@ class ChatListViewModel @Inject constructor(
 //                32,
 //                SendMessageRequest(
 //                    files = emptyList(),
-//                    "Ntcn jnghfdrb cjj,ottyb",
+//                    "ГОЙДА2",
 //                    type = "text"
 //                )
 //            )
-               val message = messageApi.getMessageByChatId(32)
-              Log.d(TAG,message.toString())
-            getAllChats()
+//            messageApi.changeMessageById(
+//                id = 31,
+//                ChangeMessageRequest("ГОЙДА Братья12")
+//            )
+           // messageApi.softDeleteMessageById(31)
+         //   Log.d(TAG,chatsApi.getChats().toString())
+          //  val message = messageApi.getMessageByChatId(32)
+            //  Log.d(TAG,message.toString())
+         messageApi.markMessageReadByMessageId(35)
+          Log.d(TAG, chatsApi.getUnreadMessageCountBuChatId(32).toString())
+
+            //getAllChats()
         }
     }
 

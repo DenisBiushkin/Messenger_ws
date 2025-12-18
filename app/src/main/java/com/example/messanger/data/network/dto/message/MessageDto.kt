@@ -1,13 +1,13 @@
 package com.example.messanger.data.network.dto.message
 
 data class MessageDto(
-    val chat_id: Int,
-    val created_at: String,
-    val files: List<Any>,
     val id: Int,
-    val message: String,
-    val meta: Any,
-    val reply_to: Any,
+    val chat_id: Int,
+    val user_id: Int,
     val type: String,
-    val user_id: Int
+    val message: String,
+    val meta: Any? = null,
+    val reply_to: Any? = null,
+    val files: List<Int> = emptyList(),
+    val created_at: String,
 )

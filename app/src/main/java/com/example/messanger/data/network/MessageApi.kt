@@ -1,6 +1,7 @@
 package com.example.messanger.data.network
 
 import com.example.messanger.data.network.dto.message.ChangeMessageRequest
+import com.example.messanger.data.network.dto.message.MarkReadDto
 import com.example.messanger.data.network.dto.message.MessageDataDto
 import com.example.messanger.data.network.dto.message.SendMessageRequest
 import retrofit2.http.Body
@@ -13,36 +14,41 @@ import retrofit2.http.Query
 
 interface MessageApi {
 
-    //ok  50/50
+    //ok
     @GET("/api/chats/{chat}/messages")
     suspend fun getMessageByChatId(
         @Path("chat") chat: Int,
-        @Query("offset") offset :Int? = null,
-        @Query("limit") limit :Int? = null
+        @Query("offset") offset :Int=0,
+        @Query("limit") limit :Int=20
     ): MessageDataDto
 
-//not tested
-    //hz
+    //Send OK
     @POST("/api/chats/{chat}/messages")
     suspend fun sendMessage(
         @Path("chat") chatId :Int,
         @Body request: SendMessageRequest
     )
 
-    //not tested
-    //hz
+
+    //ok
     @PUT("/api/messages/{message}")
     suspend fun changeMessageById(
         @Path("message") id:Int,
-        @Body body: ChangeMessageRequest
+        @Body request: ChangeMessageRequest
     )
 
-    //not tested
-    //hz
+
+    //ok
     @DELETE("/api/messages/{message}")
     suspend fun softDeleteMessageById(
         @Path("message") id:Int,
     )
+
+    //пойдет
+    @POST("/api/messages/{message}/read")
+    suspend fun markMessageReadByMessageId(
+       @Path("message") id:Int,
+    ): MarkReadDto
 
 
 }

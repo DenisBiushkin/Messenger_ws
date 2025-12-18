@@ -47,7 +47,7 @@ fun ProfileHeader(
             )
     ) {
         // Основной аватар
-        val mainAvatar = user.avatars.firstOrNull()
+        val mainAvatar = user.avatar.firstOrNull()
         
         Box(
             modifier = Modifier
