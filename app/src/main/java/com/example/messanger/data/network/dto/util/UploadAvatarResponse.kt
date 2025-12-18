@@ -1,4 +1,4 @@
-package com.example.messanger.data.network.dto
+package com.example.messanger.data.network.dto.util
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.example.messanger.data.network.dto
+package com.example.messanger.data.network.dto.util
 
 data class TokenDto(
     val access_token: String,

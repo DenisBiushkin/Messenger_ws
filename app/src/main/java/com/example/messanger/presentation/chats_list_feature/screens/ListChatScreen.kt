@@ -34,6 +34,7 @@ fun ListChatScreen(
 ) {
 
     Scaffold(
+       // modifier =modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = { Text("Messanger Ws") },
@@ -48,7 +49,8 @@ fun ListChatScreen(
     ) {
         paddingValues ->
         Box(
-            modifier = modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
                 .background(Color.White),
             contentAlignment = Alignment.Center
         ) {
@@ -119,7 +121,7 @@ fun ListChatScreen(
             }
 
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+
                // contentPadding = PaddingValues(vertical = 8.dp)
             ) {
                 items(chats) { chat ->

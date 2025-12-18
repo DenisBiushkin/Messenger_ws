@@ -1,6 +1,6 @@
-package com.example.messanger.data.network.dto
+package com.example.messanger.data.network.dto.message
 
-data class DataDto(
+data class MessageDto(
     val chat_id: Int,
     val created_at: String,
     val files: List<Any>,

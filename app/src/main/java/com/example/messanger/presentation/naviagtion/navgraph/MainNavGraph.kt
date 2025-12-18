@@ -25,6 +25,7 @@ fun MainNavGraph(
     ){
         composable(route = MainScreen.ListChat.route) {
             ChatsListWrapperScreen(
+                modifier = modifier,
                 onChatClick = {
                     chatId->
                     navController.navigate(MainScreen.Chat.createRoute("123"))

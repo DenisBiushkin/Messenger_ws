@@ -1,4 +1,4 @@
-package com.example.messanger.data.network.dto
+package com.example.messanger.data.network.dto.util
 
 data class MetaDto(
     val limit: Int,

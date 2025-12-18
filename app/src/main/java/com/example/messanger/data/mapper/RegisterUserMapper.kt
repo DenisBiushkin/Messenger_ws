@@ -1,6 +1,6 @@
 package com.example.messanger.data.mapper
 
-import com.example.messanger.data.network.dto.RegisterRequest
+import com.example.messanger.data.network.dto.util.RegisterRequest
 import com.example.messanger.domain.mapper.Mapper
 import com.example.messanger.domain.model.RegisterUser
 
