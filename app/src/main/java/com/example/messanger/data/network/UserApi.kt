@@ -27,8 +27,6 @@ interface UserApi {
     ): Response<UploadAvatarResponse>
 
 
-
-
     @POST("register")
     suspend fun registerUser(
         @Body request: RegisterRequest

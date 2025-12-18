@@ -34,6 +34,13 @@ class LoginViewModel @Inject constructor(
     private val _uiEffects = Channel<UiEffect>()
     val uiEffects = _uiEffects.receiveAsFlow()
 
+
+
+//    init {
+//       viewModelScope.launch {
+//           _uiEffects.send(UiEffect.NavigateToHome)
+//       }
+//    }
     fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.PhoneChanged -> _state.update {

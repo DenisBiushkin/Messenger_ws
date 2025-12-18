@@ -8,5 +8,6 @@ data class LoginVMState(
     val passwordVisible: Boolean = false,
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
+    //на время проверки true
     val loginSuccess: Boolean = false
 )
