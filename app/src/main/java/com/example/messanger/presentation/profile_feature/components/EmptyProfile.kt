@@ -38,6 +38,6 @@ fun EmptyProfile(onLogout: () -> Unit) {
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(24.dp))
-        LogoutButton(onLogout = onLogout)
+       // LogoutButton(onLogout = onLogout)
     }
 }

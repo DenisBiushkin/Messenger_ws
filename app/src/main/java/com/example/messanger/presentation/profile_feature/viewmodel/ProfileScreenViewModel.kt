@@ -6,23 +6,22 @@ import androidx.lifecycle.viewModelScope
 import com.example.messanger.data.network.ChatsApi
 import com.example.messanger.data.network.MessageApi
 import com.example.messanger.data.network.UserApi
+import com.example.messanger.data.network.dto.user.AvatarDto
+import com.example.messanger.data.network.dto.user.UserDto
 import com.example.messanger.data.token.TokenProvider
-import com.example.messanger.domain.repository.UserRepository
 import com.example.messanger.domain.usecases.auth.LogoutUserUseCase
 import com.example.messanger.presentation.profile_feature.model.ProfileEffect
 import com.example.messanger.presentation.profile_feature.model.ProfileEvent
 import com.example.messanger.presentation.profile_feature.model.ProfileVMState
-import com.example.messanger.presentation.register_feature.models.RegisterVMState
-import com.example.messanger.presentation.register_feature.models.RegistrationEffect
-import com.example.messanger.util.Constants
 import com.example.messanger.util.Constants.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,8 +39,10 @@ class ProfileScreenViewModel @Inject constructor(
     private val _state = MutableStateFlow(ProfileVMState())
     val state: StateFlow<ProfileVMState> = _state.asStateFlow()
 
-    private val _effects = Channel<ProfileEffect>()
-    val effects = _effects.receiveAsFlow()
+    private val _effects = MutableSharedFlow<ProfileEffect>()
+    val effects: SharedFlow<ProfileEffect> = _effects.asSharedFlow()
+
+
     init{
         viewModelScope.launch {
             val token =tokenProvider.getAccessToken()
@@ -57,16 +58,60 @@ class ProfileScreenViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: ProfileEvent){
-        when(event){
-            ProfileEvent.Logout -> {
-                _state.update { ProfileVMState() }
-                viewModelScope.launch {
-                    logoutUserUseCase.execute()
-                    delay(100)
-                    _effects.send(ProfileEffect.Logout)
-                }
+    fun onEvent(event: ProfileEvent) {
+        when (event) {
+            ProfileEvent.LoadProfile -> loadProfile()
+            ProfileEvent.Logout -> logout()
+        }
+    }
+
+    private fun loadProfile() {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(isLoading = true)
+            try {
+                // Загрузка профиля из репозитория
+                // val user = userRepository.getProfile()
+                // Имитация загрузки
+                delay(500)
+
+                val mockUser = UserDto(
+                    id = 1,
+                    name = "Алексей Петров",
+                    phone = "+7 (999) 123-45-67",
+                    created_at = "2024-01-15",
+                    avatar = listOf(
+                        AvatarDto(
+                            id = 1,
+                            original_name = "avatar.jpg",
+                            url = "https://example.com/avatar.jpg",
+                            created_at = "2024-01-20"
+                        )
+                    )
+                )
+
+                _state.value = _state.value.copy(
+                    user = mockUser,
+                    isLoading = false
+                )
+            } catch (e: Exception) {
+                _state.value = _state.value.copy(
+                    isLoading = false,
+                    error = "Ошибка загрузки профиля"
+                )
+                _effects.emit(ProfileEffect.Error(e.message ?: "Неизвестная ошибка"))
             }
+        }
+    }
+
+    private fun logout() {
+        viewModelScope.launch {
+            _state.update { ProfileVMState() }
+            viewModelScope.launch {
+                logoutUserUseCase.execute()
+                delay(100)
+            }
+            // Отправляем эффект для навигации
+            _effects.emit(ProfileEffect.Logout)
         }
     }
 }
