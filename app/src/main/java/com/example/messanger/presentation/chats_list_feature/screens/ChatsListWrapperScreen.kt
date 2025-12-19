@@ -11,13 +11,15 @@ import com.example.messanger.presentation.chats_list_feature.viemodel.ChatListVi
 fun ChatsListWrapperScreen(
     modifier: Modifier = Modifier,
     viewModel : ChatListViewModel = hiltViewModel(),
-    onChatClick:(String)->Unit
+    onChatClick:(String)->Unit,
+    onCreateChat:()->Unit
 ){
     ListChatScreen(
         modifier = modifier,
         onItemClick ={
             chatItemUi->
             onChatClick(chatItemUi.id)
-        }
+        },
+        onCreateChat = onCreateChat
     )
 }

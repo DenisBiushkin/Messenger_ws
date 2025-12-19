@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.messanger.presentation.chat_feature.screens.ChatScreenWrapper
 import com.example.messanger.presentation.chats_list_feature.screens.ChatsListWrapperScreen
+import com.example.messanger.presentation.create_chats_feature.screens.CreateChatScreenWrapper
 import com.example.messanger.presentation.naviagtion.routes.MainScreen
 import com.example.messanger.presentation.profile_feature.screens.ProfileScreenFull
 import com.example.messanger.presentation.search_users_feature.screens.SearchUserScreenWrapper
@@ -30,6 +31,9 @@ fun MainNavGraph(
                 onChatClick = {
                     chatId->
                     navController.navigate(MainScreen.Chat.createRoute("123"))
+                },
+                onCreateChat = {
+                    navController.navigate(MainScreen.CreateChat.route)
                 }
             )
         }
@@ -64,6 +68,17 @@ fun MainNavGraph(
                 },
                 onBackClick = {
                     navController.navigateUp()
+                }
+            )
+        }
+        composable(route= MainScreen.CreateChat.route){
+            CreateChatScreenWrapper(
+                modifier = modifier,
+                onBackClick = {
+
+                },
+                onChatCreated = {
+                    chatId->
                 }
             )
         }

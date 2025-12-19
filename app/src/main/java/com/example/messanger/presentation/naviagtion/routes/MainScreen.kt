@@ -2,6 +2,7 @@ package com.example.messanger.presentation.naviagtion.routes
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -49,4 +50,7 @@ sealed class MainScreen(
     }
 
     object SearchUsers : MainScreen(route = "search_screen","Поиск", Icons.Default.Search)
+
+
+    object CreateChat: MainScreen(route = "create_chat","Создать чат", icon = Icons.Default.Create)
 }
