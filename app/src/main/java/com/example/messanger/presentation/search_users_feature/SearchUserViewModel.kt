@@ -2,8 +2,8 @@ package com.example.messanger.presentation.search_users_feature
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.messanger.presentation.search_users_feature.model.UserItemUi
-import com.example.messanger.presentation.search_users_feature.model.UsersScreenState
+import com.example.messanger.presentation.search_users_feature.model.SearchUserVMState
+import com.example.messanger.presentation.search_users_feature.model.UserSearchItemUi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,8 +18,8 @@ import kotlinx.coroutines.launch
 class SearchUserViewModel (
 
 ): ViewModel() {
-    private val _state = MutableStateFlow(UsersScreenState())
-    val state: StateFlow<UsersScreenState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(SearchUserVMState())
+    val state: StateFlow<SearchUserVMState> = _state.asStateFlow()
 
     private var searchJob: Job? = null
     private val searchQueryFlow = MutableStateFlow("")
@@ -127,67 +127,67 @@ class SearchUserViewModel (
         _state.value = _state.value.copy(error = null)
     }
 
-    private fun generateMockUsers(): List<UserItemUi> {
+    private fun generateMockUsers(): List<UserSearchItemUi> {
         return listOf(
-            UserItemUi(
+            UserSearchItemUi(
                 id = "1",
                 name = "Алексей Петров",
                 avatarUrl = null,
                 isOnline = true
             ),
-            UserItemUi(
+            UserSearchItemUi(
                 id = "2",
                 name = "Мария Иванова",
                 avatarUrl = "https://example.com/avatar2.jpg",
                 isOnline = false,
                 lastSeen = "2 минуты назад"
             ),
-            UserItemUi(
+            UserSearchItemUi(
                 id = "3",
                 name = "Иван Сидоров",
                 avatarUrl = null,
                 isOnline = true
             ),
-            UserItemUi(
+            UserSearchItemUi(
                 id = "4",
                 name = "Екатерина Волкова",
                 avatarUrl = null,
                 isOnline = false,
                 lastSeen = "5 часов назад"
             ),
-            UserItemUi(
+            UserSearchItemUi(
                 id = "5",
                 name = "Дмитрий Козлов",
                 avatarUrl = "https://example.com/avatar5.jpg",
                 isOnline = true
             ),
-            UserItemUi(
+            UserSearchItemUi(
                 id = "6",
                 name = "Анна Смирнова",
                 avatarUrl = null,
                 isOnline = false,
                 lastSeen = "вчера"
             ),
-            UserItemUi(
+            UserSearchItemUi(
                 id = "7",
                 name = "Сергей Николаев",
                 avatarUrl = null,
                 isOnline = true
             ),
-            UserItemUi(
+            UserSearchItemUi(
                 id = "8",
                 name = "Ольга Михайлова",
                 avatarUrl = "https://example.com/avatar8.jpg",
                 isOnline = false,
                 lastSeen = "только что"
             ),
-            UserItemUi(
+            UserSearchItemUi(
                 id = "9",
                 name = "Павел Федоров",
                 avatarUrl = null,
                 isOnline = true
             ),
-            UserItemUi(
+            UserSearchItemUi(
                 id = "10",
                 name = "Наталья Захарова",
                 avatarUrl = null,

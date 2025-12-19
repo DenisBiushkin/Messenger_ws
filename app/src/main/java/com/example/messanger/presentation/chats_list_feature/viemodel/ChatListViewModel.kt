@@ -49,10 +49,11 @@ class ChatListViewModel @Inject constructor(
          //   Log.d(TAG,chatsApi.getChats().toString())
           //  val message = messageApi.getMessageByChatId(32)
             //  Log.d(TAG,message.toString())
-         messageApi.markMessageReadByMessageId(35)
-          Log.d(TAG, chatsApi.getUnreadMessageCountBuChatId(32).toString())
+//          Log.d(TAG, usersApi.getCurrentUser().toString())
+//          Log.d(TAG, usersApi.getUsers().toString())
 
-            //getAllChats()
+            //Log.d(TAG, usersApi.getUserById(4,4).toString())
+           // getAllChats()
         }
     }
 

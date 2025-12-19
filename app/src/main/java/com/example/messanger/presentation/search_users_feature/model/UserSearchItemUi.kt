@@ -1,6 +1,6 @@
 package com.example.messanger.presentation.search_users_feature.model
 
-data class UserItemUi(
+data class UserSearchItemUi(
     val id: String,
     val name: String,
     val avatarUrl: String? = null,

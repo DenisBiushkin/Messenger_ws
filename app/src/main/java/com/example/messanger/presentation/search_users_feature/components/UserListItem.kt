@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Send
 
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -27,6 +28,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,15 +39,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.example.messanger.presentation.search_users_feature.model.UserItemUi
+import com.example.messanger.presentation.search_users_feature.model.UserSearchItemUi
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserListItem(
-    user: UserItemUi,
+    user: UserSearchItemUi,
     onChatClick: () -> Unit,
     onItemClick: () -> Unit = {},
     modifier: Modifier = Modifier
@@ -53,7 +55,7 @@ fun UserListItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 4.dp)
+            .padding(horizontal = 6.dp, vertical = 2.dp)
             .clickable { onItemClick() },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
@@ -68,7 +70,7 @@ fun UserListItem(
         ) {
             // Аватар пользователя
             Box(
-                modifier = Modifier.size(56.dp),
+                modifier = Modifier.size(46.dp),
                 contentAlignment = Alignment.Center
             ) {
                 // Если есть URL аватара
@@ -76,7 +78,7 @@ fun UserListItem(
                     Image(
                         painter = rememberAsyncImagePainter(
                             model = user.avatarUrl,
-                            error = painterResource(id = R.drawable.star_on) // Замени на свою иконку
+                            error = painterResource(id = R.drawable.star_on)
                         ),
                         contentDescription = "Аватар ${user.name}",
                         modifier = Modifier
@@ -101,58 +103,22 @@ fun UserListItem(
                         )
                     }
                 }
-                
-                // Индикатор онлайн-статуса
-                if (user.isOnline) {
-                    Box(
-                        modifier = Modifier
-                            .size(12.dp)
-                            .clip(CircleShape)
-                            .background(Color.Green)
-                            .align(Alignment.BottomEnd)
-                            .border(
-                                2.dp,
-                                MaterialTheme.colorScheme.surface,
-                                CircleShape
-                            )
-                    )
-                }
             }
-            
+
             Spacer(modifier = Modifier.width(16.dp))
-            
-            // Информация о пользователе
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = user.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                
-                if (user.isOnline) {
-                    Text(
-                        text = "онлайн",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(top = 2.dp)
-                    )
-                } else if (user.lastSeen != null) {
-                    Text(
-                        text = "был(а) ${user.lastSeen}",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 2.dp)
-                    )
-                }
-            }
-            
+
+            // Имя пользователя
+            Text(
+                text = user.name,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Medium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f)
+            )
+
             Spacer(modifier = Modifier.width(8.dp))
-            
+
             // Кнопка "Написать"
             OutlinedButton(
                 onClick = onChatClick,
@@ -163,8 +129,8 @@ fun UserListItem(
                     contentDescription = "Написать",
                     modifier = Modifier.size(16.dp)
                 )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text("Написать", style = MaterialTheme.typography.labelMedium)
+              //  Spacer(modifier = Modifier.width(4.dp))
+                    // Text("Написать", style = MaterialTheme.typography.labelMedium)
             }
         }
     }

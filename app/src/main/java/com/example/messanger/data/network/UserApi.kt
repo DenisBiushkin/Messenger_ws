@@ -1,5 +1,6 @@
 package com.example.messanger.data.network
 
+import com.example.messanger.data.network.dto.user.CurrentUserDto
 import com.example.messanger.data.network.dto.util.RegisterRequest
 import com.example.messanger.data.network.dto.util.RegisterResponse
 import com.example.messanger.data.network.dto.util.UploadAvatarResponse
@@ -11,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserApi {
@@ -22,6 +24,11 @@ interface UserApi {
         @Query("limit") limit: Int? = null,
         @Query("search") userName: String? = null,
     ): UsersDto
+
+    @GET("/api/users/profile")
+    suspend fun getCurrentUser(
+
+    ): CurrentUserDto
 
     @Multipart
     @POST("users/avatar")
@@ -35,5 +42,12 @@ interface UserApi {
         @Body request: RegisterRequest
     ): RegisterResponse
 
+
+    //ok maybe))
+    @GET("/api/users/{user}")
+    suspend fun getUserById(
+        @Path("user") id1:Int,
+        @Query("id") id2: Int ,
+    ): CurrentUserDto
 
 }

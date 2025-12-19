@@ -11,6 +11,7 @@ import com.example.messanger.presentation.chat_feature.screens.ChatScreenWrapper
 import com.example.messanger.presentation.chats_list_feature.screens.ChatsListWrapperScreen
 import com.example.messanger.presentation.naviagtion.routes.MainScreen
 import com.example.messanger.presentation.profile_feature.screens.ProfileScreenFull
+import com.example.messanger.presentation.search_users_feature.screens.SearchUserScreenWrapper
 
 
 @Composable
@@ -52,6 +53,18 @@ fun MainNavGraph(
         ){ navBackStackEntry ->
             ChatScreenWrapper(
                 navController = navController
+            )
+        }
+
+        composable(route = MainScreen.SearchUsers.route){
+            SearchUserScreenWrapper(
+                modifier = modifier,
+                onChatClick = {
+                    userId->
+                },
+                onBackClick = {
+                    navController.navigateUp()
+                }
             )
         }
 

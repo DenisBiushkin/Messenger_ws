@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavBackStackEntry
@@ -30,10 +31,7 @@ sealed class MainScreen(
                 baseRoute
             }
         }
-
-        // Базовый маршрут (для использования в навигационном графе)
         val baseRoute = "chat_screen"
-
         // Ключи аргументов
         object Args {
             const val CHAT_ID = "chatId"
@@ -49,4 +47,6 @@ sealed class MainScreen(
 
         )
     }
+
+    object SearchUsers : MainScreen(route = "search_screen","Поиск", Icons.Default.Search)
 }
