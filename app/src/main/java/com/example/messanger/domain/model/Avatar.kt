@@ -6,7 +6,7 @@ data class Avatar(
     val id: Int,
     val originalName: String,
     val url: String,
-    val createdAt: LocalDateTime
+    val createdAt: String
 ) {
     val fileExtension: String
         get() = originalName.substringAfterLast('.', "")

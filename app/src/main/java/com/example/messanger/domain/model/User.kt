@@ -7,17 +7,12 @@ data class User(
     val id: Int,
     val name: String,
     val phone: String,
-    val createdAt: LocalDateTime,
+    val createdAt: String,
     val avatars: List<Avatar> = emptyList()
 ) {
     val formattedPhone: String
         get() = phone
 
-    val formattedDate: String
-        get() = createdAt.format(
-            DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
-        )
-    
     val hasAvatar: Boolean
         get() = avatars.isNotEmpty()
     
