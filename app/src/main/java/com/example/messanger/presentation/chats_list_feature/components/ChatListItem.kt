@@ -33,12 +33,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.messanger.presentation.chats_list_feature.model.ChatItemUi
+import com.example.messanger.presentation.chats_list_feature.model.ChatListItemUi
 
 
 @Composable
 fun ChatListItem(
-    chatItem: ChatItemUi,
+    chatItem: ChatListItemUi,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {

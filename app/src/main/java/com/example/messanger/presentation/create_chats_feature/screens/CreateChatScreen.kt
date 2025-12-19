@@ -34,7 +34,7 @@ fun CreateChatScreen(
     ) { paddingValues ->
         Column(
             modifier = modifier
-                .fillMaxSize()
+                //.fillMaxSize()
                 .padding(paddingValues)
         ) {
             // Выбранные пользователи
@@ -49,13 +49,13 @@ fun CreateChatScreen(
             }
             
             // Переключатель группового чата
-            if (state.selectedUsers.size > 1) {
+
                 GroupChatToggle(
                     isGroupChat = state.isGroupChat,
                     onToggle = { onEvent(CreateChatEvent.ToggleGroupChat) },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                 )
-            }
+
             
             // Поле для имени группы
             if (state.showNameInput) {

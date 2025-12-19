@@ -2,8 +2,6 @@ package com.example.messanger.presentation.chats_list_feature.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,7 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -26,14 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.messanger.presentation.chats_list_feature.components.ChatListItem
-import com.example.messanger.presentation.chats_list_feature.model.ChatItemUi
+import com.example.messanger.presentation.chats_list_feature.model.ChatListItemUi
 import com.example.messanger.util.ChatThemes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListChatScreen(
     modifier: Modifier = Modifier,
-    onItemClick:( ChatItemUi)->Unit,
+    chats: List< ChatListItemUi> = emptyList< ChatListItemUi>(),
+    onItemClick:(ChatListItemUi)->Unit,
     onCreateChat:()->Unit = {},
     theme: ChatThemes = ChatThemes
 ) {
@@ -67,72 +65,6 @@ fun ListChatScreen(
                 .background(Color.White),
             contentAlignment = Alignment.Center
         ) {
-            val chats = remember {
-                listOf(
-                    ChatItemUi(
-                        id = "1",
-                        userName = "Анна Петрова",
-                        lastMessage = "Привет! Как дела? Когда встретимся?",
-                        unreadCount = 3,
-                        timestamp = "10:30",
-                        isOnline = true
-                    ),
-                    ChatItemUi(
-                        id = "2",
-                        userName = "Иван Сидоров",
-                        lastMessage = "Отправил тебе документы по проекту",
-                        unreadCount = 1,
-                        timestamp = "Вчера"
-                    ),
-                    ChatItemUi(
-                        id = "3",
-                        userName = "Мария Иванова",
-                        lastMessage = "Спасибо за помощь!",
-                        timestamp = "15 апр"
-                    ),
-                    ChatItemUi(
-                        id = "4",
-                        userName = "Алексей Смирнов",
-                        lastMessage = "Завтра в 14:00 на совещании",
-                        timestamp = "14 апр"
-                    ),
-                    ChatItemUi(
-                        id = "5",
-                        userName = "Екатерина Волкова",
-                        lastMessage = "👋",
-                        isOnline = true,
-                        timestamp = "12 апр"
-                    ),
-                    ChatItemUi(
-                        id = "1",
-                        userName = "Анна Петрова",
-                        lastMessage = "Привет! Как дела? Когда встретимся?",
-                        unreadCount = 3,
-                        timestamp = "10:30",
-                        isOnline = true
-                    ),
-                    ChatItemUi(
-                        id = "2",
-                        userName = "Иван Сидоров",
-                        lastMessage = "Отправил тебе документы по проекту",
-                        unreadCount = 1,
-                        timestamp = "Вчера"
-                    ),
-                    ChatItemUi(
-                        id = "3",
-                        userName = "Мария Иванова",
-                        lastMessage = "Спасибо за помощь!",
-                        timestamp = "15 апр"
-                    ),
-                    ChatItemUi(
-                        id = "4",
-                        userName = "Алексей Смирнов",
-                        lastMessage = "Завтра в 14:00 на совещании",
-                        timestamp = "14 апр"
-                    ),
-                )
-            }
-
             LazyColumn(
 
                // contentPadding = PaddingValues(vertical = 8.dp)

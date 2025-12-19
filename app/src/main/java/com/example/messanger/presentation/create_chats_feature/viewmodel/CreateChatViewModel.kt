@@ -74,18 +74,25 @@ class CreateChatViewModel @Inject constructor(
     }
     
     private fun onUserSelected(userId: String) {
+        //текущее состояние
         val currentState = _state.value
+        //Пользователь по id выбранного
         val user = currentState.users.find { it.id == userId } ?: return
-        
+
+        //отмечаем его как добавленного
         val updatedUsers = currentState.users.map {
-            if (it.id == userId) it.copy(isSelected = !it.isSelected) else it
+            if (it.id == userId)
+                it.copy(isSelected = !it.isSelected) else it
         }
-        
+
+        //в отфильтрованных тоже отмечаем
         val updatedFilteredUsers = currentState.filteredUsers.map {
-            if (it.id == userId) it.copy(isSelected = !it.isSelected) else it
+            if (it.id == userId)
+                it.copy(isSelected = !it.isSelected) else it
         }
-        
+        //Если участник выбран
         val selectedUsers = if (user.isSelected) {
+            //что?
             currentState.selectedUsers - user
         } else {
             // Проверка для личного чата
@@ -100,6 +107,8 @@ class CreateChatViewModel @Inject constructor(
         
         // Автоматически переключаем в групповой режим если выбрано >1 пользователя
         val isGroupChat = selectedUsers.size > 1
+        //val isGroupChat = true
+
         val showNameInput = isGroupChat && currentState.chatName.isEmpty()
         
         _state.value = currentState.copy(
@@ -174,6 +183,8 @@ class CreateChatViewModel @Inject constructor(
                     filteredUsers = mockUsers,
                     isLoading = false
                 )
+
+
             } catch (e: Exception) {
                 _state.value = _state.value.copy(
                     isLoading = false,

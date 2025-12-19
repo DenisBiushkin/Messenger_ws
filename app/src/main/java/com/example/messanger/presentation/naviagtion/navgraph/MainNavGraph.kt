@@ -75,7 +75,7 @@ fun MainNavGraph(
             CreateChatScreenWrapper(
                 modifier = modifier,
                 onBackClick = {
-
+                    navController.navigateUp()
                 },
                 onChatCreated = {
                     chatId->
