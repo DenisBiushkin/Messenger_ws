@@ -16,6 +16,19 @@ class ChatRepositoryImpl(
     private val chatsApi: ChatsApi
 ) : ChatRepository{
 
+    override suspend fun getChatByIdWithLastMessages(chatId: Int): Flow<Resource<Chat>> = flow {
+        try {
+            val result = chatsApi.getChatByIdWithLastMessages(chatId)
+
+            emit(Resource.Success(ChatMapper().fromFirstToSecond(result.data)))
+
+        }catch (e: IOException){
+            emit(Resource.Error(message = "Нет подключения к интернету"))
+        }catch (e: Exception){
+            emit( Resource.Error(message = "Иная ошибка +"+e.toString()))
+        }
+    }
+
     override suspend fun getChats(
         offset: Int ,
         limit: Int
@@ -30,7 +43,7 @@ class ChatRepositoryImpl(
         }catch (e: IOException){
             emit(Resource.Error(message = "Нет подключения к интернету"))
         }catch (e: Exception){
-            emit( Resource.Error(message = "Иная ошибка"))
+            emit( Resource.Error(message = "Иная ошибка +"+e.toString()))
         }
     }
 

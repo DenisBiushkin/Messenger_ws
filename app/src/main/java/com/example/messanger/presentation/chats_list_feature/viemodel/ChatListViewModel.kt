@@ -8,9 +8,12 @@ import com.example.messanger.data.network.MessageApi
 import com.example.messanger.data.network.UserApi
 import com.example.messanger.data.network.dto.message.ChangeMessageRequest
 import com.example.messanger.data.network.dto.message.SendMessageRequest
+import com.example.messanger.domain.model.ChatType
+import com.example.messanger.domain.repository.ChatRepository
 import com.example.messanger.presentation.chats_list_feature.model.ChatListItemUi
 import com.example.messanger.presentation.chats_list_feature.model.ChatListScreenState
 import com.example.messanger.util.Constants.TAG
+import com.example.messanger.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +27,8 @@ import javax.inject.Inject
 class ChatListViewModel @Inject constructor(
     private val chatsApi: ChatsApi,
     private val usersApi: UserApi,
-    private val messageApi: MessageApi
+    private val messageApi: MessageApi,
+    private val chatRepository: ChatRepository
 ): ViewModel(){
 
     private val _state = MutableStateFlow(ChatListScreenState(isLoading = true))
@@ -32,38 +36,79 @@ class ChatListViewModel @Inject constructor(
 
     init {
         loadChats()
+        viewModelScope.launch {
+            testLoadData()
+        }
+    }
+
+    private suspend fun testLoadData(){
+        viewModelScope.launch {
+            chatRepository.createChat(
+                title = "Api test",
+                type = ChatType.GROUP,
+                listOf(1,2,3,4)
+            ).collect {
+                when(it){
+                    is Resource.Error ->{
+                        Log.d(TAG,"Ошибка получения данных "+it.message)
+                    }
+                    is Resource.Success ->{
+                        Log.d(TAG,it.data.toString())
+                    }
+                    is Resource.Loading ->{
+                        Log.d(TAG,"Загрузка данных")
+                    }
+                }
+            }
+
+        }
+
     }
 
     fun loadChats() {
         viewModelScope.launch {
-            _state.value = _state.value.copy(isLoading = true, error = null)
 
-            try {
-                // Имитация загрузки данных
-                delay(1500)
+            chatRepository.getChats(0,20).collect { data ->
+                when(data){
+                    is Resource.Error ->{
+                        _state.value = _state.value.copy(
+                            isLoading = false,
+                            error = "Ошибка загрузки чатов: ${data.message}"
+                        )
+                    }
+                    is Resource.Success ->{
+                       // val mockChats = generateMockChats()
 
-                // Здесь будет реальная загрузка из репозитория
-                // val chats = chatRepository.getChats()
+                        val mockChats = data.data?.map {
+                            ChatListItemUi(
+                                id = it.id.toString(),
+                                userName = it.title,
+                                lastMessage = "Пока пусто",
+                                unreadCount = 0,
+                                timestamp = "10:30",
+                                isOnline = false
+                            )
+                        }?: emptyList()
+                        val isEmpty = mockChats.isEmpty()
 
-                val mockChats = generateMockChats()
-                val isEmpty = mockChats.isEmpty()
+                        _state.value = _state.value.copy(
+                            chats = mockChats,
+                            isLoading = false,
+                            isEmpty = isEmpty
+                        )
 
-                _state.value = _state.value.copy(
-                    chats = mockChats,
-                    isLoading = false,
-                    isEmpty = isEmpty
-                )
-
-            } catch (e: Exception) {
-                _state.value = _state.value.copy(
-                    isLoading = false,
-                    error = "Ошибка загрузки чатов: ${e.message}"
-                )
+                        Log.d(TAG,data.data.toString())
+                    }
+                    is Resource.Loading ->{
+                        _state.value = _state.value.copy(isLoading = true, error = null)
+                    }
+                }
             }
         }
     }
 
     fun refresh() {
+        Log.d(TAG,"Идет повторное получение данных")
         loadChats()
     }
 

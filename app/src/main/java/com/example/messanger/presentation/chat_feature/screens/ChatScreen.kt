@@ -37,7 +37,7 @@ fun ChatScreen(
                 onInputChange = onInputChange,
                 onSendMessage = { text ->
                     onSendMessage(text)
-                    onInputChange("")
+                    //onInputChange("")
                 }
             )
         }

@@ -9,11 +9,13 @@ import com.example.messanger.data.network.UserApi
 import com.example.messanger.data.network.dto.user.AvatarDto
 import com.example.messanger.data.network.dto.user.UserDto
 import com.example.messanger.data.token.TokenProvider
+import com.example.messanger.domain.repository.UserRepository
 import com.example.messanger.domain.usecases.auth.LogoutUserUseCase
 import com.example.messanger.presentation.profile_feature.model.ProfileEffect
 import com.example.messanger.presentation.profile_feature.model.ProfileEvent
 import com.example.messanger.presentation.profile_feature.model.ProfileVMState
 import com.example.messanger.util.Constants.TAG
+import com.example.messanger.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -31,6 +33,7 @@ import javax.inject.Inject
 class ProfileScreenViewModel @Inject constructor(
     private val tokenProvider: TokenProvider,
     private val logoutUserUseCase: LogoutUserUseCase,
+    private val userRepository: UserRepository,
     private val userApi: UserApi,
     private val messageApi: MessageApi,
     private val chatsApi: ChatsApi
@@ -47,14 +50,6 @@ class ProfileScreenViewModel @Inject constructor(
         viewModelScope.launch {
             val token =tokenProvider.getAccessToken()
             Log.d(TAG, "Токен в приложении "+token)
-
-
-//            val data = userApi.getUser(1)
-//            val data2 = messageApi.getMessageById(30)
-//            Log.d(TAG,data.toString())
-//            Log.d(TAG,data2.data.toString())
-
-
         }
     }
 
@@ -67,39 +62,45 @@ class ProfileScreenViewModel @Inject constructor(
 
     private fun loadProfile() {
         viewModelScope.launch {
-            _state.value = _state.value.copy(isLoading = true)
-            try {
-                // Загрузка профиля из репозитория
-                // val user = userRepository.getProfile()
-                // Имитация загрузки
-                delay(500)
 
-                val mockUser = UserDto(
-                    id = 1,
-                    name = "Алексей Петров",
-                    phone = "+7 (999) 123-45-67",
-                    created_at = "2024-01-15",
-                    avatar = listOf(
-                        AvatarDto(
-                            id = 1,
-                            original_name = "avatar.jpg",
-                            url = "https://example.com/avatar.jpg",
-                            created_at = "2024-01-20"
+            val user = userRepository.getCurrentUser().collect {
+                result->
+                when(result){
+                    is Resource.Error<*> -> {
+                        _state.value = _state.value.copy(
+                            isLoading = false,
+                            error = "Ошибка загрузки профиля"
                         )
-                    )
-                )
+                        _effects.emit(ProfileEffect.Error(result.message ?: "Неизвестная ошибка"))
+                    }
+                    is Resource.Loading<*> -> {
+                        _state.value = _state.value.copy(isLoading = true)
+                    }
+                    is Resource.Success<*> -> {
+                        val data = result.data!!
+                        val mockUser = UserDto(
+                            id = 1,
+                            name = data.name,
+                            phone = data.phone,
+                            created_at = data.createdAt,
+                            avatar = listOf(
+                                AvatarDto(
+                                    id = 1,
+                                    original_name = "avatar.jpg",
+                                    url = "https://example.com/avatar.jpg",
+                                    created_at = "2024-01-20"
+                                )
+                            )
+                        )
 
-                _state.value = _state.value.copy(
-                    user = mockUser,
-                    isLoading = false
-                )
-            } catch (e: Exception) {
-                _state.value = _state.value.copy(
-                    isLoading = false,
-                    error = "Ошибка загрузки профиля"
-                )
-                _effects.emit(ProfileEffect.Error(e.message ?: "Неизвестная ошибка"))
+                        _state.value = _state.value.copy(
+                            user = mockUser,
+                            isLoading = false
+                        )
+                    }
+                }
             }
+
         }
     }
 

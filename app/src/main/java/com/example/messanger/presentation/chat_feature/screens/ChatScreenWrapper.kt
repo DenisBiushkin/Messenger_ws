@@ -19,12 +19,13 @@ import com.example.messanger.presentation.chat_feature.viewmodel.ChatViewModel
 @Composable
 fun ChatScreenWrapper(
     navController: NavController,
+    onBackClick:()->Unit = {},
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
 
     ChatScreen(
-        chatUserUi = ChatUserUi("","Test Chat"),
+        chatUserUi = ChatUserUi(state.chatId.toString(),state.chatName),
         uiState = state,
         onSendMessage = { text ->
             viewModel.sendMessage(text)
@@ -32,9 +33,7 @@ fun ChatScreenWrapper(
         onInputChange = { newInput ->
             viewModel.updateInput(newInput)
         },
-        onBackClick = {
-
-        }
+        onBackClick = onBackClick
     )
 }
 

@@ -43,6 +43,10 @@ sealed class MainScreen(
                 chatId = navBackStackEntry.arguments?.getString(Args.CHAT_ID),
             )
         }
+
+        fun getArgumentRoutes(): String{
+            return "${MainScreen.Chat.baseRoute}?${MainScreen.Chat.Args.CHAT_ID}={${MainScreen.Chat.Args.CHAT_ID}}"
+        }
         data class ChatArgs(
             val chatId: String?,
 

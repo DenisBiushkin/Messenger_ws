@@ -14,7 +14,7 @@ fun MainAppScreen(onLogout: () -> Unit) {
     val navController = rememberNavController()
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     val showBottomBar = when (currentDestination?.route) {
-        MainScreen.Chat.route,
+        MainScreen.Chat.getArgumentRoutes(),
             -> false
         else -> true
     }

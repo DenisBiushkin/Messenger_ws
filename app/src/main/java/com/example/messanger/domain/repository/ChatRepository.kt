@@ -12,6 +12,8 @@ interface ChatRepository {
 
     suspend fun getChats( offset :Int = 0, limit :Int = 20): Flow<Resource<List<Chat>>>
 
+    suspend fun getChatByIdWithLastMessages( chatId: Int): Flow<Resource<Chat>>
+
     suspend fun getUsersInChatById(chatId:Int): Flow<Resource<List<User>>>
 
     //????

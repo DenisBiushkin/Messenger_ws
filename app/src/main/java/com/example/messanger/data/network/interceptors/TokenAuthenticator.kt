@@ -32,7 +32,4 @@ class TokenAuthenticator @Inject constructor(
             }
         }
     }
-    
-
-
 }
